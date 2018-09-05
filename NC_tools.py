@@ -14,13 +14,13 @@ from netCDF4 import date2num
 import datetime 
 
 
-def nc_dis(outdir, datos, stname, units, name):
+def nc_dis(outdir, datos, stname, units, name, varname):
     # Create File
     #outdir = "/home/anthony/Documents/temp/GestionNetCDF/test2.nc"
     foo = NetCDFFile(outdir, 'w')
 
     # Create dimensions
-    dimt = 1380
+    dimt = 1428
     dims = 1
     foo.createDimension('time', dimt)
     foo.createDimension("stn", dims)
@@ -37,7 +37,7 @@ def nc_dis(outdir, datos, stname, units, name):
     Ld=[]
     Ln = []
     i=0
-    while i<1380:
+    while i<1428:
         y = i/12
         m = i-y*12+1
         d = datetime.datetime(i/12+1900,m,1)
@@ -49,7 +49,7 @@ def nc_dis(outdir, datos, stname, units, name):
 
 
     # Variable hydro
-    newvar = foo.createVariable("hydro", "float", ("time", "stn"), zlib=True)
+    newvar = foo.createVariable(varname, "float", ("time", "stn"), zlib=True)
     newvar.setncattr("standard_name", name)
     newvar.setncattr("units", units)
     newvar.setncattr("long_name", "Discharge for "+stname)
